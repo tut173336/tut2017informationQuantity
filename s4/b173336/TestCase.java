@@ -28,7 +28,7 @@ public interface InformationEstimatorInterface{
 }                        
 */
 
-
+//git test
 public class TestCase {
     public static void main(String[] args) {
 	try {
@@ -40,7 +40,17 @@ public class TestCase {
 	    myObject.setTarget("H".getBytes());
 	    freq = myObject.frequency();
 	    System.out.print("\"H\" in \"Hi Ho Hi Ho\" appears "+freq+" times. ");
-	    if(4 == freq) { System.out.println("OK"); } else {System.out.println("WRONG"); }
+        if(4 == freq) { System.out.println("OK"); } else {System.out.println("WRONG");}
+        myObject.setTarget("i".getBytes());
+        freq = myObject.frequency();
+        System.out.print("\"i\" in \"Hi Ho Hi Ho\" appears "+freq+" times. ");
+        if(3 == freq) { System.out.println("OK"); } else {System.out.println("WRONG");}
+        myObject.setSpace("hoge fuga foo bar".getBytes());
+        myObject.setTarget("f".getBytes());
+        freq = myObject.frequency();
+        System.out.print("\"f\" in \"hoge fuga foo bar\" appears "+freq+" times. ");
+        if(2 == freq) { System.out.println("OK"); } else {System.out.println("WRONG");}
+        
 	}
 	catch(Exception e) {
 	    System.out.println("Exception occurred: STOP");
