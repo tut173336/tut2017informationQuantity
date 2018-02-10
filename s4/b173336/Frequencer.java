@@ -95,21 +95,55 @@ public class Frequencer implements FrequencerInterface{
          A:o Hi Ho
          */
         //
-        int temp;
-        for (int i = 0; i < mySpace.length ; i++){
-            for (int j = i+1 ; j < mySpace.length ; j++){
-                if ( 1 == suffixCompare(i,j)){
-                    temp = suffixArray[j];
-                    suffixArray[j] = suffixArray[i];
-                    suffixArray[i] = temp;
-                }
-            }
-            
-        }
+        
+        mergeSort(suffixArray);
         
         
         printSuffixArray();
     }
+    
+    private void merge(int [] array_front, int [] array_rear, int [] array) {
+        int i = 0;
+        int j = 0;
+        
+        //ソートしながら合成する
+        while(i < array_front.length || j < array_rear.length) {
+            if(j >= array_rear.length || (i < array_front.length && suffixCompare(array_front[i],array_rear[j]) != 1)) {
+                array[i+j] = array_front[i];
+                i++;
+            }
+            else{
+                array[i+j] = array_rear[j];
+                j++;
+            }
+        }
+    }
+    
+    private void mergeSort(int [] array) {
+        if(array.length > 1) {  //分割できなくなるまで再帰
+            //半分に分割
+            int front = array.length/2;
+            int rear = array.length - front;
+            int [] array_front = new int[front];
+            int [] array_rear = new int[rear];
+            
+            //分割した配列に代入
+            for(int i = 0; i < front; i++) {
+                array_front[i] = array[i];
+            }
+            
+            for(int i = 0; i < rear; i++) {
+                array_rear[i] = array[front+i];
+            }
+            
+            //再帰で分割
+            mergeSort(array_front);
+            mergeSort(array_rear);
+            //分割が終わった後ソートしながら合成
+            merge(array_front,array_rear,array);
+        }
+    }
+    
     private int targetCompare(int i, int start, int end) {
         // この関数は, 関数 subBytesStartIndex() と 関数 subBytesEndIndex () から呼び出されます.
         // 上記の 2 つの関数で start と end は同じ値です.
@@ -153,11 +187,22 @@ public class Frequencer implements FrequencerInterface{
         // not implemented yet;
         // For "Ho", it will return 5 for "Hi Ho Hi Ho".
         // For "Ho ", it will return 6 for "Hi Ho Hi Ho".
-        for(int i = 0; i < suffixArray.length - 1; i++) {
-            if (targetCompare(i, start, end) == 0) {
-                return i;
+       
+        //二分探索の実装
+        int left = 0;
+        int right = mySpace.length - 1;
+        
+        do {
+            int mid = (left + right) / 2;
+            
+            if(targetCompare(mid, start, end) == 0 && targetCompare(mid-1,start,end) == -1) {
+                return mid;
+            } else if (targetCompare(mid, start, end) == -1) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
             }
-        }
+        } while (left <= right);
         
         return suffixArray.length;
     }
@@ -167,12 +212,21 @@ public class Frequencer implements FrequencerInterface{
         // not implemented yet
         // For "Ho", it will return 7 for "Hi Ho Hi Ho".
         // For "Ho ", it will return 7 for "Hi Ho Hi Ho".
-        for(int i = suffixArray.length - 1; i > 0; i--) {
-            if (targetCompare(i, start, end) == 0) {
-                return i+1;
-            }
-        }
         
+        //二分探索の実装
+        int left = 0;
+        int right = mySpace.length - 1;
+        
+        do {
+            int mid = (left + right) / 2;
+            if (targetCompare(mid, start, end) == 0 && targetCompare(mid+1,start,end) == 1 ) {
+                return mid + 1;
+            } else if (targetCompare(mid, start, end) == 1) {
+                right = mid - 1;
+            } else {
+                left = mid + 1;
+            }
+        } while (left <= right);
         return suffixArray.length;
     }
     
