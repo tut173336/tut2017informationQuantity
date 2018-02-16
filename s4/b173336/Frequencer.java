@@ -41,21 +41,33 @@ public class Frequencer implements FrequencerInterface{
         // comparing two suffixes by dictionary order.
         // i and j denoetes suffix_i, and suffix_j
         
-        int si = suffixArray[i];
-        int sj = suffixArray[j];
+        int si = i;
+        int sj = j;
         
         int s = 0;
-        if (si > s){ s = si; }
-        if (sj > s){ s = sj; }
+        if (si > s){
+            s = si;
+        }
+        if (sj > s){
+            s = sj;
+        }
         int n = mySpace.length - s;
+        
         for (int k = 0 ; k < n ; k++) {
             // mySpace [si + k] のアルファベットが, mySpace [sj + k] のアルファベットより大きい (後) のとき
-            if (mySpace[si + k] > mySpace[sj+k]) { return 1; }
+            if (mySpace[si + k] > mySpace[sj+k]) {
+                return 1;
+            }
             // mySpace [si + k] のアルファベットが, mySpace [sj + k] のアルファベットより小さい (前) のとき
-            if (mySpace[si + k] < mySpace[sj+k]) { return -1; }
+            if (mySpace[si + k] < mySpace[sj+k]) {
+                return -1;
+            }
         }
-        if (si < sj) return 1;
-        if (si > sj) return -1;
+        if (si < sj)
+            return 1;
+        if (si > sj)
+            return -1;
+        
         // if suffix_i = suffix_j, it returns 0;
         // It is not implemented yet,
         // It should be used to create suffix array.
@@ -63,7 +75,7 @@ public class Frequencer implements FrequencerInterface{
         // "i" < "o" :compare by code
         // "Hi" < "Ho" ;if head is same, compare the next element
         // "Ho" < "Ho " ;if the prefix is identical, longer string is big
-        return 0 ;
+        return 0;
     }
     
     public void setTarget(byte [] target) {
@@ -96,8 +108,7 @@ public class Frequencer implements FrequencerInterface{
          */
         //
         
-        mergeSort(suffixArray);
-        
+        split(suffixArray);
         
         printSuffixArray();
     }
@@ -119,7 +130,7 @@ public class Frequencer implements FrequencerInterface{
         }
     }
     
-    private void mergeSort(int [] array) {
+    private void split(int [] array) {
         if(array.length > 1) {  //分割できなくなるまで再帰
             //半分に分割
             int front = array.length/2;
@@ -137,8 +148,8 @@ public class Frequencer implements FrequencerInterface{
             }
             
             //再帰で分割
-            mergeSort(array_front);
-            mergeSort(array_rear);
+            split(array_front);
+            split(array_rear);
             //分割が終わった後ソートしながら合成
             merge(array_front,array_rear,array);
         }
@@ -150,12 +161,21 @@ public class Frequencer implements FrequencerInterface{
         // start と end は検索対象の始めの文字と終わりの文字を表す整数で,
         // comparing suffix_i and target_j_end by dictonary order with limitation of length;
         // if the beginning of suffix_i matches target_i_end, and suffix is longer than
+        if( i < 0 )
+            return -1;
+        else if( i > mySpace.length - 1 )
+            return 1;
+        
         int si = suffixArray[i];
         int s = 0;
-        if(si > s){ s = si;}
+        
+        if(si > s)
+            s = si;
         int n = mySpace.length - s;
+        
         // if suffix_i > target_i_end it return 1;
-        if( n > end - start ) n = end - start;
+        if( n > end - start )
+            n = end - start;
         for (int j = 0; j < n; j++) {
             if (mySpace[si+j] > myTarget[start+j])
                 return 1;
@@ -177,6 +197,10 @@ public class Frequencer implements FrequencerInterface{
             //"Ho" < "Ho " "Ho"is not in the head of suffix "Ho"
             //"Ho" = "H"   "H" is in the head of suffix "Ho"
         }
+        
+        if( n < end - start)
+            return -1;
+        
         return 0;
     }
     
@@ -187,7 +211,7 @@ public class Frequencer implements FrequencerInterface{
         // not implemented yet;
         // For "Ho", it will return 5 for "Hi Ho Hi Ho".
         // For "Ho ", it will return 6 for "Hi Ho Hi Ho".
-       
+        
         //二分探索の実装
         int left = 0;
         int right = mySpace.length - 1;
@@ -216,9 +240,11 @@ public class Frequencer implements FrequencerInterface{
         //二分探索の実装
         int left = 0;
         int right = mySpace.length - 1;
-        
+    
         do {
+            
             int mid = (left + right) / 2;
+            
             if (targetCompare(mid, start, end) == 0 && targetCompare(mid+1,start,end) == 1 ) {
                 return mid + 1;
             } else if (targetCompare(mid, start, end) == 1) {
