@@ -91,26 +91,11 @@ public class Frequencer implements FrequencerInterface{
         for(int i = 0; i< space.length; i++) {
             suffixArray[i] = i;
         }
-        printSuffixArray();
-        // Sorting is not implmented yet.
-        /* Example from "Hi Ho Hi Ho"
-         0: Hi Ho
-         1: Ho
-         2: Ho Hi Ho
-         3:Hi Ho
-         4:Hi Ho Hi Ho
-         5:Ho
-         6:Ho Hi Ho
-         7:i Ho
-         8:i Ho Hi Ho
-         9:o
-         A:o Hi Ho
-         */
-        //
+        //printSuffixArray();
         
         split(suffixArray);
         
-        printSuffixArray();
+        //printSuffixArray();
     }
     
     private void merge(int [] array_front, int [] array_rear, int [] array) {
