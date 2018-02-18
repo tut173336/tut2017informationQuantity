@@ -141,16 +141,16 @@ public class InformationEstimator implements InformationEstimatorInterface{
         myObject.setSpace("3210321001230123".getBytes());
         myObject.setTarget("0".getBytes());
         value = myObject.estimation();
-        System.out.println(">0 "+value);
+        //System.out.println(">0 "+value);
         myObject.setTarget("01".getBytes());
         value = myObject.estimation();
-        System.out.println(">01 "+value);
+        //System.out.println(">01 "+value);
         myObject.setTarget("0123".getBytes());
         value = myObject.estimation();
-        System.out.println(">0123 "+value);
+        //System.out.println(">0123 "+value);
         myObject.setTarget("00".getBytes());
         value = myObject.estimation();
-        System.out.println(">00 "+value);
+        //System.out.println(">00 "+value);
     }
 }
 

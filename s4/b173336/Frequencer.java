@@ -31,8 +31,9 @@ public class Frequencer implements FrequencerInterface{
             for(int i=0; i< mySpace.length; i++) {
                 int s = suffixArray[i];
                 for(int j=s;j<mySpace.length;j++) {
-                    System.out.write(mySpace[j]); }
-                System.out.write('\n');
+                    //System.out.write(mySpace[j]);
+                }
+                //System.out.write('\n');
             }
         }
     }
@@ -225,7 +226,7 @@ public class Frequencer implements FrequencerInterface{
         //二分探索の実装
         int left = 0;
         int right = mySpace.length - 1;
-    
+        
         do {
             
             int mid = (left + right) / 2;
@@ -256,9 +257,9 @@ public class Frequencer implements FrequencerInterface{
         int last1 = subByteEndIndex(start, end);
         // inspection code
         for(int k=start;k<end;k++) {
-            System.out.write(myTarget[k]);
+            //System.out.write(myTarget[k]);
         }
-        System.out.printf(": first=%d last1=%d\n", first, last1);
+        //System.out.printf(": first=%d last1=%d\n", first, last1);
         
         
         return last1 - first;
@@ -280,12 +281,17 @@ public class Frequencer implements FrequencerInterface{
             
             frequencerObject.setTarget("H".getBytes());
             int result = frequencerObject.frequency();
-            System.out.print("Freq = "+ result+" ");
-            if(4 == result) { System.out.println("OK"); }
-            else {System.out.println("WRONG"); }
+            //System.out.print("Freq = "+ result+" ");
+            if(4 == result) {
+                //System.out.println("OK");
+            }
+            else {
+                //System.out.println("WRONG");
+            }
         }
         catch(Exception e) {
-            System.out.println("STOP"); }
+            //System.out.println("STOP");
+        }
     }
 }
 

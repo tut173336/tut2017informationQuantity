@@ -34,8 +34,8 @@ public class TestCase {
         try {
             FrequencerInterface  myObject;
             int freq;
-            System.out.println("checking s4.b173304.Frequencer");
-            myObject = new s4.b173304.Frequencer();
+            System.out.println("checking s4.b173336.Frequencer");
+            myObject = new s4.b173336.Frequencer();
             myObject.setSpace("Hi Ho Hi Ho".getBytes());
             myObject.setTarget("H".getBytes());
             freq = myObject.frequency();
@@ -49,8 +49,8 @@ public class TestCase {
         try {
             InformationEstimatorInterface myObject;
             double value;
-            System.out.println("checking s4.b173304.InformationEstimator");
-            myObject = new s4.b173304.InformationEstimator();
+            System.out.println("checking s4.b173336.InformationEstimator");
+            myObject = new s4.b173336.InformationEstimator();
             myObject.setSpace("3210321001230123".getBytes());
             myObject.setTarget("0".getBytes());
             value = myObject.estimation();
